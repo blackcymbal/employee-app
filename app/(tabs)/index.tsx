@@ -1,59 +1,41 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { Box, Heading, Text, VStack } from "native-base";
+import { StyleSheet } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <Box flex={1} alignItems={"center"} justifyContent={"center"}>
+      <Heading>
+        A component library for the
+        <Text color="emerald.500"> React Ecosystem</Text>
+      </Heading>
+      <Text fontSize="2xl" fontWeight="bold" mt={3}>
+        NativeBase is a simple, modular and accessible component library that
+        gives you building blocks to build you React applications.
+      </Text>
+      <VStack space={1} alignItems="center">
+        <Text fontSize="xs">xs</Text>
+        <Text fontSize="sm">sm</Text>
+        <Text fontSize="md">md</Text>
+        <Text fontSize="lg">lg</Text>
+        <Text fontSize="xl">xl</Text>
+        <Text fontSize="2xl" fontWeight="bold">
+          NativeBase is a simple, modular and accessible component library that
+          gives you building blocks to build you React applications.
+        </Text>
+        <Text fontSize="3xl">3xl</Text>
+        <Text fontSize="4xl">4xl</Text>
+        <Text fontSize="5xl">5xl</Text>
+        <Text fontSize="6xl">6xl</Text>
+      </VStack>
+      ;
+    </Box>
   );
 }
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
   },
   stepContainer: {
@@ -65,6 +47,6 @@ const styles = StyleSheet.create({
     width: 290,
     bottom: 0,
     left: 0,
-    position: 'absolute',
+    position: "absolute",
   },
 });

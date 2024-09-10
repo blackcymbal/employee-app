@@ -29,7 +29,7 @@ export default function LoginInputs() {
 
   const onSubmit = (data: ProfileDetailsProps) => {
     console.log(data);
-    router.replace("/(tabs)");
+    router.replace("/employeeListScreen");
   };
 
   return (

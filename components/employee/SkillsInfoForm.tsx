@@ -1,4 +1,10 @@
+import {
+  changeSkillsInfo,
+  employeeInfo,
+} from "@/store/slices/employee/employeeInfoSlice";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { router } from "expo-router";
 import { Box, Button, Input, Stack, Text } from "native-base";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -6,23 +12,28 @@ import CustomSelect from "../common/CustomSelect";
 import { SkillInfoSchemaType, skillInfoSchema } from "./AddEmployeeSchema";
 
 export default function SkillsInfoForm() {
+  const employeeInformation = useAppSelector(employeeInfo);
+  const dispatch = useAppDispatch();
+
   const {
     handleSubmit,
     control,
     formState: { errors, isValid },
   } = useForm<SkillInfoSchemaType>({
     defaultValues: {
-      skillName: "",
-      experienceYears: 0,
-      skillLevel: "Beginner",
+      skillName: employeeInformation.skillName,
+      experienceYears: employeeInformation.experienceYears,
+      skillLevel: employeeInformation.skillLevel,
     },
     resolver: zodResolver(skillInfoSchema),
     mode: "onChange",
   });
 
   const onSubmit = (data: SkillInfoSchemaType) => {
-    console.log(data);
+    dispatch(changeSkillsInfo(data));
+    router.navigate("/(tabs)/preview");
   };
+
   return (
     <Box alignItems="center" mt={4}>
       <Stack
@@ -42,7 +53,7 @@ export default function SkillsInfoForm() {
           render={({ field: { value, onChange, onBlur } }) => (
             <Input
               size="xl"
-              placeholder="First name"
+              placeholder="Skill name"
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -99,7 +110,7 @@ export default function SkillsInfoForm() {
         )}
       </Stack>
       <Button onPress={handleSubmit(onSubmit)} width="40%">
-        Add Skill
+        Save
       </Button>
     </Box>
   );

@@ -21,9 +21,30 @@ export const employeeListApiSlice = createApi({
   }),
   endpoints: (builder) => ({
     fetchEmployees: builder.query<EmployeesResponse, void>({
-      query: () => "employees",
+      query: () => ({
+        url: "employees",
+        method: "Get",
+      }),
+    }),
+    createEmployee: builder.mutation({
+      query: (body) => ({
+        url: "create",
+        method: "POST",
+        body,
+      }),
+    }),
+    updateEmployee: builder.mutation({
+      query: ({ id, ...body }) => ({
+        url: `update/${id}`,
+        method: "PUT",
+        body,
+      }),
     }),
   }),
 });
 
-export const { useFetchEmployeesQuery } = employeeListApiSlice;
+export const {
+  useFetchEmployeesQuery,
+  useCreateEmployeeMutation,
+  useUpdateEmployeeMutation,
+} = employeeListApiSlice;

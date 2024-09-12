@@ -1,12 +1,14 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import counterReducer from "./slices/counter/counterSlice";
+import employeeInfoReducer from "./slices/employee/employeeInfoSlice";
 import { employeeListApiSlice } from "./slices/employee/employeeListApi";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     [employeeListApiSlice.reducerPath]: employeeListApiSlice.reducer,
+    employeeInfo: employeeInfoReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(employeeListApiSlice.middleware),

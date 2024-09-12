@@ -1,5 +1,11 @@
+import {
+  changeBasicInfo,
+  employeeInfo,
+} from "@/store/slices/employee/employeeInfoSlice";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { router } from "expo-router";
 import { Box, Button, Input, Stack, Text } from "native-base";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -9,6 +15,9 @@ import { basicInfoSchema, BasicInfoSchemaType } from "./AddEmployeeSchema";
 export default function BasicInfoForm() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date(1950, 0, 1));
   const [service, setService] = React.useState("");
+  const employeeInformation = useAppSelector(employeeInfo);
+
+  const dispatch = useAppDispatch();
 
   const {
     handleSubmit,
@@ -16,26 +25,26 @@ export default function BasicInfoForm() {
     formState: { errors, isValid },
   } = useForm<BasicInfoSchemaType>({
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      birthday: new Date(1950, 0, 1),
-      salary: 0,
-      gender: "Male",
-      phone: "",
+      firstName: employeeInformation.firstName,
+      lastName: employeeInformation.lastName,
+      birthday: employeeInformation.birthday,
+      salary: employeeInformation.salary,
+      gender: employeeInformation.gender,
+      phone: employeeInformation.phone,
     },
     resolver: zodResolver(basicInfoSchema),
     mode: "onChange",
   });
 
-  const onDateChange = (event: any, date?: Date) => {
+  const onDateChange = (date?: Date) => {
     if (date) {
       setSelectedDate(date);
-      //  control.('birthday', date);
     }
   };
 
   const onSubmit = (data: BasicInfoSchemaType) => {
-    console.log(data);
+    dispatch(changeBasicInfo({ ...data, birthday: selectedDate }));
+    router.navigate("/(tabs)/skillsScreen");
   };
 
   return (
@@ -98,13 +107,13 @@ export default function BasicInfoForm() {
               <DateTimePicker
                 value={selectedDate}
                 onChange={(date) => {
-                  onDateChange(date);
                   const timestamp = date?.nativeEvent?.timestamp;
+                  onDateChange(new Date(timestamp));
                   onChange(new Date(timestamp));
                 }}
                 onBlur={onBlur}
                 placeholder="Select your birthday"
-                format="YYYY-MM-DD"
+                format="DD-MM-YYYYY"
               />
             </Box>
           )}

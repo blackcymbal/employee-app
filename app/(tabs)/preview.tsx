@@ -1,10 +1,14 @@
+import AppBar from "@/components/common/AppBar";
+import AllInfoPreview from "@/components/employee/AllInfoPreview";
+
+import { Box } from "native-base";
 import React from "react";
-import { Text, View } from "react-native";
 
 export default function Preview() {
   return (
-    <View>
-      <Text>preview</Text>
-    </View>
+    <Box flex={1}>
+      <AppBar title="Employee Info Preview" />
+      <AllInfoPreview />
+    </Box>
   );
 }

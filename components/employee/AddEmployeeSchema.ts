@@ -21,4 +21,18 @@ export const basicInfoSchema = z.object({
     .max(11, "Phone number must contain 11 digits"),
 });
 
-export type BasicInfoSchema = z.infer<typeof basicInfoSchema>;
+export type BasicInfoSchemaType = z.infer<typeof basicInfoSchema>;
+
+export const skillInfoSchema = z.object({
+  skillName: z
+    .string()
+    .min(1, { message: "Skill name is required" })
+    .max(50, { message: "Keep your response within 30 characters" }),
+  experienceYears: z
+    .number()
+    .int()
+    .min(0, "Years of experience must be at least 0"),
+  skillLevel: z.enum(["Beginner", "Intermediate", "Advanced"]),
+});
+
+export type SkillInfoSchemaType = z.infer<typeof skillInfoSchema>;

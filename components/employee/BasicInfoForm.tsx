@@ -4,16 +4,7 @@ import { Box, Button, Input, Stack, Text } from "native-base";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import CustomSelect from "../common/CustomSelect";
-import { basicInfoSchema } from "./AddEmployeeSchema";
-
-type BasicInfoProps = {
-  firstName: string;
-  lastName: string;
-  birthday: Date;
-  salary: number;
-  gender: "Male" | "Female" | "Other";
-  phone: string;
-};
+import { basicInfoSchema, BasicInfoSchemaType } from "./AddEmployeeSchema";
 
 export default function BasicInfoForm() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date(1950, 0, 1));
@@ -23,7 +14,7 @@ export default function BasicInfoForm() {
     handleSubmit,
     control,
     formState: { errors, isValid },
-  } = useForm<BasicInfoProps>({
+  } = useForm<BasicInfoSchemaType>({
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -43,7 +34,7 @@ export default function BasicInfoForm() {
     }
   };
 
-  const onSubmit = (data: BasicInfoProps) => {
+  const onSubmit = (data: BasicInfoSchemaType) => {
     console.log(data);
   };
 
@@ -186,7 +177,7 @@ export default function BasicInfoForm() {
         )}
       </Stack>
       <Button onPress={handleSubmit(onSubmit)} width="40%">
-        Login
+        Save
       </Button>
     </Box>
   );

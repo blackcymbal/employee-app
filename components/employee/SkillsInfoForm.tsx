@@ -35,7 +35,7 @@ export default function SkillsInfoForm() {
   };
 
   return (
-    <Box alignItems="center" mt={4}>
+    <Box alignItems="center" mt={8}>
       <Stack
         marginBottom={4}
         space={4}

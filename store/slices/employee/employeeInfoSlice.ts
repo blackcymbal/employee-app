@@ -26,7 +26,6 @@ export const employeeInfoSlice = createSlice({
   initialState,
   reducers: {
     changeBasicInfo: (state, action: PayloadAction<BasicInfoSchemaType>) => {
-      console.log(action.payload);
       return { ...state, ...action.payload };
     },
     changeSkillsInfo: (state, action: PayloadAction<SkillInfoSchemaType>) => {

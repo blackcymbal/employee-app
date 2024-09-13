@@ -5,7 +5,7 @@ import { Box } from "native-base";
 export default function HomeScreen() {
   return (
     <Box flex={1}>
-      <AppBar title="Basic Informations" />
+      <AppBar title="Basic Informations" isBackButton={true} />
       <BasicInfoForm />
     </Box>
   );

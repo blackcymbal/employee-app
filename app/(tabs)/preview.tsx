@@ -7,7 +7,7 @@ import React from "react";
 export default function Preview() {
   return (
     <Box flex={1}>
-      <AppBar title="Employee Info Preview" />
+      <AppBar title="Employee Info Preview" isBackButton={true} />
       <AllInfoPreview />
     </Box>
   );

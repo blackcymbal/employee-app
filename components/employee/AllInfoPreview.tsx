@@ -81,7 +81,6 @@ export default function AllInfoPreview() {
       createEmployee(employeeInformation)
         .unwrap()
         .then((data) => {
-          console.log(data);
           dispatch(changeAllInfo(data.data));
           toast.show({
             title: "User creation Successful",
@@ -98,7 +97,7 @@ export default function AllInfoPreview() {
     }
   };
   return (
-    <Stack padding={4} space={2}>
+    <Stack padding={4} mt={4} space={2}>
       {previewData.map((item, idx) => (
         <Box key={idx} flexDirection="row">
           <Text fontWeight="semibold" fontSize="lg">

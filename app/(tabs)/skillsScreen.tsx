@@ -6,7 +6,7 @@ import React from "react";
 export default function SkillsScreen() {
   return (
     <Box flex={1}>
-      <AppBar title="Skills Informations" />
+      <AppBar title="Skills Informations" isBackButton={true} />
       <SkillsInfoForm />
     </Box>
   );

@@ -23,7 +23,7 @@ export default function EachEmployee({ employee }: EachEmployeeTypes) {
       lastName: lastName,
       salary: employee.employee_salary,
     };
-    console.log(employeeInfo);
+
     dispatch(changeAllInfo(employeeInfo));
     router.navigate("/(tabs)");
   };

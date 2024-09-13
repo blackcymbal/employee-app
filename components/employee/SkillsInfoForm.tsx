@@ -109,7 +109,11 @@ export default function SkillsInfoForm() {
           <Text color="error.400">{errors.skillLevel?.message}</Text>
         )}
       </Stack>
-      <Button onPress={handleSubmit(onSubmit)} width="40%">
+      <Button
+        onPress={handleSubmit(onSubmit)}
+        width="40%"
+        isDisabled={isValid ? false : true}
+      >
         Save
       </Button>
     </Box>

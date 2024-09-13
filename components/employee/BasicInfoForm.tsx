@@ -201,6 +201,7 @@ export default function BasicInfoForm() {
           }}
           render={({ field: { value, onChange, onBlur } }) => (
             <Input
+              keyboardType="numeric"
               size="xl"
               placeholder="Phone no"
               value={value}
@@ -213,7 +214,11 @@ export default function BasicInfoForm() {
           <Text color="error.400">{errors.phone?.message}</Text>
         )}
       </Stack>
-      <Button onPress={handleSubmit(onSubmit)} width="40%">
+      <Button
+        onPress={handleSubmit(onSubmit)}
+        width="40%"
+        isDisabled={isValid ? false : true}
+      >
         Save
       </Button>
     </Box>

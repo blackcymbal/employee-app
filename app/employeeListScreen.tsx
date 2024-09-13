@@ -1,9 +1,11 @@
 import AppBar from "@/components/common/AppBar";
 import EmployeeList from "@/components/employee/EmployeeList";
+import { resetAllInfo } from "@/store/slices/employee/employeeInfoSlice";
 import {
   EmployeeTypes,
   useFetchEmployeesQuery,
 } from "@/store/slices/employee/employeeListApi";
+import { useAppDispatch } from "@/store/store";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Box, Button, Icon, Spinner } from "native-base";
@@ -12,7 +14,12 @@ import React from "react";
 export default function EmployeeListScreen() {
   const { data: employees, error, isLoading } = useFetchEmployeesQuery();
 
-  const handlePress = () => router.push("/(tabs)");
+  const dispatch = useAppDispatch();
+
+  const handlePress = () => {
+    dispatch(resetAllInfo({}));
+    router.push("/(tabs)");
+  };
 
   return (
     <Box flex={1}>

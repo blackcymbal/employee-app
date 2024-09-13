@@ -1,15 +1,34 @@
+import { changeAllInfo } from "@/store/slices/employee/employeeInfoSlice";
 import { EmployeeTypes } from "@/store/slices/employee/employeeListApi";
+import { useAppDispatch } from "@/store/store";
 import { MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Avatar, Box, Icon, Text } from "native-base";
 import React from "react";
+import { TouchableOpacity } from "react-native";
 
 type EachEmployeeTypes = {
   employee: EmployeeTypes;
 };
 
 export default function EachEmployee({ employee }: EachEmployeeTypes) {
+  const dispatch = useAppDispatch();
+
+  const handlePress = () => {
+    const [firstName, lastName] = employee.employee_name.split(" ");
+
+    const employeeInfo = {
+      id: employee.id,
+      firstName: firstName,
+      lastName: lastName,
+      salary: employee.employee_salary,
+    };
+    console.log(employeeInfo);
+    dispatch(changeAllInfo(employeeInfo));
+    router.navigate("/(tabs)");
+  };
   return (
-    <Box>
+    <TouchableOpacity onPress={handlePress}>
       <Box flexDirection="row" justifyContent="center">
         <Box flex={1}>
           <Avatar
@@ -41,6 +60,6 @@ export default function EachEmployee({ employee }: EachEmployeeTypes) {
         </Box>
       </Box>
       <Box height="1px" backgroundColor="gray.400" mt={4} />
-    </Box>
+    </TouchableOpacity>
   );
 }

@@ -17,6 +17,8 @@ export default function BasicInfoForm() {
   const [service, setService] = React.useState("");
   const employeeInformation = useAppSelector(employeeInfo);
 
+  console.log(">>>>>/????? ", employeeInformation);
+
   const dispatch = useAppDispatch();
 
   const {

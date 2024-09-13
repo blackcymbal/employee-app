@@ -111,7 +111,7 @@ export default function AllInfoPreview() {
         isLoading={isLoading || isUpdateLoading}
         isLoadingText={employeeInformation.id ? "Updating" : "Creating"}
         onPress={handlePress}
-        width="40%"
+        width="50%"
         alignSelf="center"
         mt={4}
       >

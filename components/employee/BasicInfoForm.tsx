@@ -6,18 +6,18 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { router } from "expo-router";
+import moment from "moment";
 import { Box, Button, Input, Stack, Text } from "native-base";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { Platform, StyleSheet, TouchableOpacity } from "react-native";
 import CustomSelect from "../common/CustomSelect";
 import { basicInfoSchema, BasicInfoSchemaType } from "./AddEmployeeSchema";
 
 export default function BasicInfoForm() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date(1950, 0, 1));
-  const [service, setService] = React.useState("");
+  const [showPicker, setShowPicker] = React.useState(false);
   const employeeInformation = useAppSelector(employeeInfo);
-
-  console.log(">>>>>/????? ", employeeInformation);
 
   const dispatch = useAppDispatch();
 
@@ -41,6 +41,7 @@ export default function BasicInfoForm() {
   const onDateChange = (date?: Date) => {
     if (date) {
       setSelectedDate(date);
+      setShowPicker(false);
     }
   };
 
@@ -106,17 +107,42 @@ export default function BasicInfoForm() {
           render={({ field: { value, onChange, onBlur } }) => (
             <Box flexDirection="row" alignItems="center">
               <Text>Birthday:</Text>
-              <DateTimePicker
-                value={selectedDate}
-                onChange={(date) => {
-                  const timestamp = date?.nativeEvent?.timestamp;
-                  onDateChange(new Date(timestamp));
-                  onChange(new Date(timestamp));
-                }}
-                onBlur={onBlur}
-                placeholder="Select your birthday"
-                format="DD-MM-YYYYY"
-              />
+              {Platform.OS === "android" ? (
+                <Box flexDirection="row" alignItems="center">
+                  <TouchableOpacity
+                    onPress={() => setShowPicker(true)}
+                    style={styles.dateBox}
+                  >
+                    <Text> {moment(selectedDate).format("DD-MM-YYYY")}</Text>
+                  </TouchableOpacity>
+
+                  {showPicker && (
+                    <DateTimePicker
+                      value={selectedDate}
+                      onChange={(date) => {
+                        const timestamp = date?.nativeEvent?.timestamp;
+                        onDateChange(new Date(timestamp));
+                        onChange(new Date(timestamp));
+                      }}
+                      onBlur={onBlur}
+                      placeholder="Select your birthday"
+                      format="DD-MM-YYYYY"
+                    />
+                  )}
+                </Box>
+              ) : (
+                <DateTimePicker
+                  value={selectedDate}
+                  onChange={(date) => {
+                    const timestamp = date?.nativeEvent?.timestamp;
+                    onDateChange(new Date(timestamp));
+                    onChange(new Date(timestamp));
+                  }}
+                  onBlur={onBlur}
+                  placeholder="Select your birthday"
+                  format="DD-MM-YYYYY"
+                />
+              )}
             </Box>
           )}
         />
@@ -193,3 +219,13 @@ export default function BasicInfoForm() {
     </Box>
   );
 }
+
+const styles = StyleSheet.create({
+  dateBox: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    backgroundColor: "#DCDCDC",
+    marginLeft: 4,
+    borderRadius: 4,
+  },
+});
